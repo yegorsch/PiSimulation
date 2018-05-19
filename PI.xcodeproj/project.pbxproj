@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F7A000E9624E1D6ABBCAEAA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A068B7EC789ECD31DC23E /* README.md */; };
 		7416761D20B061F500E1B68E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416761C20B061F500E1B68E /* AppDelegate.m */; };
 		7416761F20B061F500E1B68E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7416761E20B061F500E1B68E /* GameScene.sks */; };
 		7416762120B061F500E1B68E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7416762020B061F500E1B68E /* Actions.sks */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F7A068B7EC789ECD31DC23E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7416761820B061F500E1B68E /* PI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7416761B20B061F500E1B68E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7416761C20B061F500E1B68E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				7416761A20B061F500E1B68E /* PI */,
 				7416761920B061F500E1B68E /* Products */,
+				2F7A068B7EC789ECD31DC23E /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,6 +165,7 @@
 				7416762720B061F500E1B68E /* GameViewController.m in Sources */,
 				7416763220B061F600E1B68E /* main.m in Sources */,
 				7416761D20B061F500E1B68E /* AppDelegate.m in Sources */,
+				2F7A000E9624E1D6ABBCAEAA /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
