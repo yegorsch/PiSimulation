@@ -9,74 +9,87 @@
 #import "GameScene.h"
 
 @implementation GameScene {
-    SKShapeNode *_spinnyNode;
-    SKLabelNode *_label;
+    SKShapeNode *_squareNode;
+    SKShapeNode *_circleNode;
+    CGRect _squareRect;
+    SKLabelNode *_scoreLabel;
+    SKTexture *_dotTexture;
 }
+
+NSInteger const maxNumberOfDots = 20000;
+NSInteger currentNumberOfDots = 0;
+double dotsInCircle = 0;
+
 
 - (void)didMoveToView:(SKView *)view {
-    // Setup your scene here
-    
-    // Get label node from scene and store it for use later
-    _label = (SKLabelNode *)[self childNodeWithName:@"//helloLabel"];
-    
-    _label.alpha = 0.0;
-    [_label runAction:[SKAction fadeInWithDuration:2.0]];
-    
-    CGFloat w = (self.size.width + self.size.height) * 0.05;
-    
-    // Create shape node to use during mouse interaction
-    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.3];
-    _spinnyNode.lineWidth = 2.5;
-    
-    [_spinnyNode runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:M_PI duration:1]]];
-    [_spinnyNode runAction:[SKAction sequence:@[
-                                                [SKAction waitForDuration:0.5],
-                                                [SKAction fadeOutWithDuration:0.5],
-                                                [SKAction removeFromParent],
-                                                ]]];
+    [self addSquare];
+    [self addCircle];
+    _scoreLabel = [SKLabelNode labelNodeWithText:@"Pi: "];
+    _scoreLabel.position = CGPointMake(0, -_squareNode.frame.size.height / 2 - 45);
+    _scoreLabel.color = [UIColor whiteColor];
+    _scoreLabel.fontName = @"Arial-BoldMT";
+    _scoreLabel.fontSize = 60;
+    [self addChild:_scoreLabel];
+    _dotTexture = [SKTexture textureWithImageNamed:@"whitePixel"];
 }
 
-
-- (void)touchDownAtPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor greenColor];
-    [self addChild:n];
+- (void)addCircle {
+    _circleNode = [SKShapeNode shapeNodeWithEllipseInRect:_squareRect];
+    _circleNode.lineWidth = 4.5;
+    [_squareNode addChild:_circleNode];
 }
 
-- (void)touchMovedToPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor blueColor];
-    [self addChild:n];
+- (void)addSquare {
+    double offset = 50;
+    double edgeLength = self.scene.frame.size.width - offset;
+    _squareRect = CGRectMake(self.scene.frame.origin.x + offset / 2,
+                                   self.scene.frame.origin.y + edgeLength / 2,
+                                   edgeLength, edgeLength);
+    _squareNode = [SKShapeNode shapeNodeWithRect:_squareRect];
+    _squareNode.lineWidth = 6.5;
+    [self.scene addChild:_squareNode];
 }
 
-- (void)touchUpAtPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor redColor];
-    [self addChild:n];
+- (SKShapeNode *)generateDot {
+    CGPoint randomPoint = CGPointMake([self getRandomXForRect], [self getRandomYForRect]);
+    SKShapeNode *node = [[SKSpriteNode new] initWithTexture:_dotTexture];
+    node.position = randomPoint;
+    return node;
 }
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Run 'Pulse' action from 'Actions.sks'
-    [_label runAction:[SKAction actionNamed:@"Pulse"] withKey:@"fadeInOut"];
-    
-    for (UITouch *t in touches) {[self touchDownAtPoint:[t locationInNode:self]];}
-}
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    for (UITouch *t in touches) {[self touchMovedToPoint:[t locationInNode:self]];}
-}
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *t in touches) {[self touchUpAtPoint:[t locationInNode:self]];}
-}
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *t in touches) {[self touchUpAtPoint:[t locationInNode:self]];}
-}
-
 
 -(void)update:(CFTimeInterval)currentTime {
-    // Called before each frame is rendered
+    [self addDots:3];
 }
+
+- (void)addDots:(int)num {
+    for (int i = 0; i < num; i++) {
+        if (currentNumberOfDots != maxNumberOfDots) {
+            SKShapeNode *dot = [self generateDot];
+            if ([_circleNode containsPoint:dot.frame.origin]) {
+                dotsInCircle++;
+                double piApprox = dotsInCircle / currentNumberOfDots * 4;
+                NSString *labelString = [[NSString alloc] initWithFormat:@"Pi: %f", piApprox];
+                [_scoreLabel setText:labelString];
+            }
+            [self.scene addChild:dot];
+            currentNumberOfDots++;
+        }
+    }
+}
+
+-(double) getRandomXForRect {
+    int lowerBound = 0;
+    int upperBound = _squareRect.size.width;
+    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    return rndValue -  _squareRect.size.height / 2;
+}
+
+-(double) getRandomYForRect {
+    int lowerBound = 0;
+    int upperBound = _squareRect.size.height;
+    int rndValue = lowerBound + arc4random() % (upperBound - lowerBound);
+    return rndValue - _squareRect.size.height / 2 - _squareRect.origin.x + _squareRect.origin.y;
+}
+
 
 @end
