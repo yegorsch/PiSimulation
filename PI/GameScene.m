@@ -13,7 +13,8 @@
     SKShapeNode *_circleNode;
     CGRect _squareRect;
     SKLabelNode *_scoreLabel;
-    SKTexture *_dotTexture;
+    SKTexture *_outerDotTexture;
+    SKTexture *_innerDotTexture;
 }
 
 NSInteger const maxNumberOfDots = 20000;
@@ -22,15 +23,17 @@ double dotsInCircle = 0;
 
 
 - (void)didMoveToView:(SKView *)view {
-    [self addSquare];
-    [self addCircle];
-    _scoreLabel = [SKLabelNode labelNodeWithText:@"Pi: "];
-    _scoreLabel.position = CGPointMake(0, -_squareNode.frame.size.height / 2 - 45);
-    _scoreLabel.color = [UIColor whiteColor];
-    _scoreLabel.fontName = @"Arial-BoldMT";
-    _scoreLabel.fontSize = 60;
-    [self addChild:_scoreLabel];
-    _dotTexture = [SKTexture textureWithImageNamed:@"whitePixel"];
+  [self addSquare];
+  [self addCircle];
+  _scoreLabel = [SKLabelNode labelNodeWithText:@"Pi: "];
+  _scoreLabel.position =
+      CGPointMake(0, -_squareNode.frame.size.height / 2 - 45);
+  _scoreLabel.color = [UIColor whiteColor];
+  _scoreLabel.fontName = @"Arial-BoldMT";
+  _scoreLabel.fontSize = 60;
+  [self addChild:_scoreLabel];
+  _outerDotTexture = [SKTexture textureWithImageNamed:@"whitePixel"];
+  _innerDotTexture = [SKTexture textureWithImageNamed:@"redPixel"];
 }
 
 - (void)addCircle {
@@ -50,9 +53,18 @@ double dotsInCircle = 0;
     [self.scene addChild:_squareNode];
 }
 
-- (SKShapeNode *)generateDot {
+- (SKSpriteNode *)generateDot {
     CGPoint randomPoint = CGPointMake([self getRandomXForRect], [self getRandomYForRect]);
-    SKShapeNode *node = [[SKSpriteNode new] initWithTexture:_dotTexture];
+    SKSpriteNode *node;
+    if ([_circleNode containsPoint:randomPoint]) {
+        dotsInCircle++;
+        double piApprox = dotsInCircle / currentNumberOfDots * 4;
+        NSString *labelString = [[NSString alloc] initWithFormat:@"Pi: %f", piApprox];
+        [_scoreLabel setText:labelString];
+        node = [[SKSpriteNode new] initWithTexture:_innerDotTexture];
+    } else {
+        node = [[SKSpriteNode new] initWithTexture:_outerDotTexture];
+    }
     node.position = randomPoint;
     return node;
 }
@@ -62,19 +74,13 @@ double dotsInCircle = 0;
 }
 
 - (void)addDots:(int)num {
-    for (int i = 0; i < num; i++) {
-        if (currentNumberOfDots != maxNumberOfDots) {
-            SKShapeNode *dot = [self generateDot];
-            if ([_circleNode containsPoint:dot.frame.origin]) {
-                dotsInCircle++;
-                double piApprox = dotsInCircle / currentNumberOfDots * 4;
-                NSString *labelString = [[NSString alloc] initWithFormat:@"Pi: %f", piApprox];
-                [_scoreLabel setText:labelString];
-            }
-            [self.scene addChild:dot];
-            currentNumberOfDots++;
-        }
+  for (int i = 0; i < num; i++) {
+    if (currentNumberOfDots != maxNumberOfDots) {
+      SKSpriteNode *dot = [self generateDot];
+      [self.scene addChild:dot];
+      currentNumberOfDots++;
     }
+  }
 }
 
 -(double) getRandomXForRect {

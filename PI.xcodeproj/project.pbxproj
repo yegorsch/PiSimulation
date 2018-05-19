@@ -18,6 +18,8 @@
 		7416762F20B061F600E1B68E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416762D20B061F600E1B68E /* LaunchScreen.storyboard */; };
 		7416763220B061F600E1B68E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416763120B061F600E1B68E /* main.m */; };
 		7416763920B07D5D00E1B68E /* whitePixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 7416763820B07D5D00E1B68E /* whitePixel.png */; };
+		748FC5BF20B0A4100081C0E4 /* redPixel.png in Resources */ = {isa = PBXBuildFile; fileRef = 748FC5BE20B0A4100081C0E4 /* redPixel.png */; };
+		748FC5C120B0A81F0081C0E4 /* gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 748FC5C020B0A81F0081C0E4 /* gif.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		7416763020B061F600E1B68E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7416763120B061F600E1B68E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7416763820B07D5D00E1B68E /* whitePixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whitePixel.png; sourceTree = "<group>"; };
+		748FC5BE20B0A4100081C0E4 /* redPixel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redPixel.png; sourceTree = "<group>"; };
+		748FC5C020B0A81F0081C0E4 /* gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gif.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +76,12 @@
 			children = (
 				7416761B20B061F500E1B68E /* AppDelegate.h */,
 				7416761C20B061F500E1B68E /* AppDelegate.m */,
+				748FC5BE20B0A4100081C0E4 /* redPixel.png */,
 				7416761E20B061F500E1B68E /* GameScene.sks */,
 				7416762020B061F500E1B68E /* Actions.sks */,
 				7416762220B061F500E1B68E /* GameScene.h */,
 				7416762320B061F500E1B68E /* GameScene.m */,
+				748FC5C020B0A81F0081C0E4 /* gif.gif */,
 				7416763820B07D5D00E1B68E /* whitePixel.png */,
 				7416762520B061F500E1B68E /* GameViewController.h */,
 				7416762620B061F500E1B68E /* GameViewController.m */,
@@ -146,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7416763920B07D5D00E1B68E /* whitePixel.png in Resources */,
+				748FC5C120B0A81F0081C0E4 /* gif.gif in Resources */,
+				748FC5BF20B0A4100081C0E4 /* redPixel.png in Resources */,
 				7416762A20B061F500E1B68E /* Main.storyboard in Resources */,
 				7416761F20B061F500E1B68E /* GameScene.sks in Resources */,
 				7416762C20B061F600E1B68E /* Assets.xcassets in Resources */,
