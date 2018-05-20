@@ -15,25 +15,40 @@
     SKLabelNode *_scoreLabel;
     SKTexture *_outerDotTexture;
     SKTexture *_innerDotTexture;
+    SKSpriteNode *_innerDot;
+    SKSpriteNode *_outerDot;
 }
 
 NSInteger const maxNumberOfDots = 20000;
 NSInteger currentNumberOfDots = 0;
 double dotsInCircle = 0;
 
-
 - (void)didMoveToView:(SKView *)view {
   [self addSquare];
   [self addCircle];
-  _scoreLabel = [SKLabelNode labelNodeWithText:@"Pi: "];
-  _scoreLabel.position =
+  [self addScore];
+  [self initDots];
+}
+
+-(void)update:(CFTimeInterval)currentTime {
+    [self addDots:3];
+}
+
+- (void)initDots {
+    _outerDotTexture = [SKTexture textureWithImageNamed:@"whitePixel"];
+    _innerDotTexture = [SKTexture textureWithImageNamed:@"redPixel"];
+    _innerDot = [[SKSpriteNode new] initWithTexture:_innerDotTexture];
+    _outerDot = [[SKSpriteNode new] initWithTexture:_outerDotTexture];
+}
+
+- (void)addScore {
+    _scoreLabel = [SKLabelNode labelNodeWithText:@"Pi: "];
+    _scoreLabel.position =
       CGPointMake(0, -_squareNode.frame.size.height / 2 - 45);
-  _scoreLabel.color = [UIColor whiteColor];
-  _scoreLabel.fontName = @"Arial-BoldMT";
-  _scoreLabel.fontSize = 60;
-  [self addChild:_scoreLabel];
-  _outerDotTexture = [SKTexture textureWithImageNamed:@"whitePixel"];
-  _innerDotTexture = [SKTexture textureWithImageNamed:@"redPixel"];
+    _scoreLabel.color = [UIColor whiteColor];
+    _scoreLabel.fontName = @"Arial-BoldMT";
+    _scoreLabel.fontSize = 60;
+    [self addChild:_scoreLabel];
 }
 
 - (void)addCircle {
@@ -57,20 +72,20 @@ double dotsInCircle = 0;
     CGPoint randomPoint = CGPointMake([self getRandomXForRect], [self getRandomYForRect]);
     SKSpriteNode *node;
     if ([_circleNode containsPoint:randomPoint]) {
-        dotsInCircle++;
-        double piApprox = dotsInCircle / currentNumberOfDots * 4;
-        NSString *labelString = [[NSString alloc] initWithFormat:@"Pi: %f", piApprox];
-        [_scoreLabel setText:labelString];
-        node = [[SKSpriteNode new] initWithTexture:_innerDotTexture];
+        [self incrementNumberOfDotsInCircle];
+        node = [_innerDot copy];
     } else {
-        node = [[SKSpriteNode new] initWithTexture:_outerDotTexture];
+        node = [_outerDot copy];
     }
     node.position = randomPoint;
     return node;
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    [self addDots:3];
+- (void)incrementNumberOfDotsInCircle {
+    dotsInCircle++;
+    double piApprox = dotsInCircle / currentNumberOfDots * 4;
+    NSString *labelString = [[NSString alloc] initWithFormat:@"Pi: %f", piApprox];
+    [_scoreLabel setText:labelString];
 }
 
 - (void)addDots:(int)num {
