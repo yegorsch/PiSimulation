@@ -76,22 +76,38 @@
 			children = (
 				7416761B20B061F500E1B68E /* AppDelegate.h */,
 				7416761C20B061F500E1B68E /* AppDelegate.m */,
-				748FC5BE20B0A4100081C0E4 /* redPixel.png */,
-				7416761E20B061F500E1B68E /* GameScene.sks */,
-				7416762020B061F500E1B68E /* Actions.sks */,
 				7416762220B061F500E1B68E /* GameScene.h */,
 				7416762320B061F500E1B68E /* GameScene.m */,
-				748FC5C020B0A81F0081C0E4 /* gif.gif */,
-				7416763820B07D5D00E1B68E /* whitePixel.png */,
 				7416762520B061F500E1B68E /* GameViewController.h */,
 				7416762620B061F500E1B68E /* GameViewController.m */,
+				7416763020B061F600E1B68E /* Info.plist */,
+				744E683F20E0CF1600E82ECA /* Others */,
+			);
+			path = PI;
+			sourceTree = "<group>";
+		};
+		744E683F20E0CF1600E82ECA /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				744E684020E0CF3D00E82ECA /* Textures */,
+				7416761E20B061F500E1B68E /* GameScene.sks */,
+				7416762020B061F500E1B68E /* Actions.sks */,
+				748FC5C020B0A81F0081C0E4 /* gif.gif */,
 				7416762820B061F500E1B68E /* Main.storyboard */,
 				7416762B20B061F600E1B68E /* Assets.xcassets */,
 				7416762D20B061F600E1B68E /* LaunchScreen.storyboard */,
-				7416763020B061F600E1B68E /* Info.plist */,
 				7416763120B061F600E1B68E /* main.m */,
 			);
-			path = PI;
+			path = Others;
+			sourceTree = "<group>";
+		};
+		744E684020E0CF3D00E82ECA /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				748FC5BE20B0A4100081C0E4 /* redPixel.png */,
+				7416763820B07D5D00E1B68E /* whitePixel.png */,
+			);
+			path = Textures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

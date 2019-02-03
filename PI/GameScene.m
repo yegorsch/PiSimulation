@@ -19,7 +19,7 @@
     SKSpriteNode *_outerDot;
 }
 
-NSInteger const maxNumberOfDots = 20000;
+NSInteger const maxNumberOfDots = 15000;
 NSInteger currentNumberOfDots = 0;
 double dotsInCircle = 0;
 
